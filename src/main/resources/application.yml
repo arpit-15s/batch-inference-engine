@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: batch-inference-engine
+
+server:
+  port: 8080
+
+batch:
+  max-size: 1000
+  max-concurrency: 30
+
+inference:
+  mock:
+    base-url: http://localhost:8080/mock
+    rate-limit-per-second: 10
+    allow-burst: false
+    simulated-latency-ms: 200
+  max-retries: 3
+  backoff-initial-ms: 100
+  backoff-max-ms: 5000
+  task-timeout-ms: 30000
+
+repository:
+  max-retained-jobs: 100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
