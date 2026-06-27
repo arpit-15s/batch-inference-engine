@@ -1,31 +1,16 @@
 package com.example.inference.repository;
 
 import com.example.inference.model.BatchJob;
-import org.springframework.stereotype.Repository;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
-public class BatchJobRepository {
+public interface BatchJobRepository {
 
-    private final Map<String, BatchJob> store = new ConcurrentHashMap<>();
+    BatchJob save(BatchJob batchJob);
 
-    public BatchJob save(BatchJob batchJob) {
-        store.put(batchJob.getBatchId(), batchJob);
-        return batchJob;
-    }
+    Optional<BatchJob> findById(String batchId);
 
-    public Optional<BatchJob> findById(String batchId) {
-        return Optional.ofNullable(store.get(batchId));
-    }
+    void deleteById(String batchId);
 
-    public void deleteById(String batchId) {
-        store.remove(batchId);
-    }
-
-    public int count() {
-        return store.size();
-    }
+    int count();
 }
